@@ -3,6 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 mnist = tf.keras.datasets.mnist
 
+from tensorboard import program
+tb = program.TensorBoard()
+tb.configure(argv=[None, '--logdir', '127.0.0.1:6006'])
+url = tb.launch()
+
+
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
 
