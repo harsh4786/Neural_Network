@@ -6,8 +6,8 @@ import cv2  # Can be download in pycham by adding "opencv-python" library
 from time import time
 from tensorflow.python.keras.callbacks import TensorBoard
 
-#The line must seen like this in terminal
-#(Neural_Network_Env) C:\Projects\Pycharm\Neural_Network\Neural_Network\Neural_Network_Models>tensorboard --logdir=logs/MnistExample
+# The line must seen like this in terminal
+# (Neural_Network_Env) C:\Projects\Pycharm\Neural_Network\Neural_Network\Neural_Network_Models>tensorboard --logdir=logs/MnistExample
 
 # Importing Python
 
@@ -17,8 +17,6 @@ mnist = tf.keras.datasets.mnist
 x_train, x_test = x_train / 255.0, x_test / 255.0
 
 img1 = np.array(x_train[2])
-
-
 
 model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28)),
