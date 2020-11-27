@@ -6,6 +6,9 @@ import cv2  # Can be download in pycham by adding "opencv-python" library
 from time import time
 from tensorflow.python.keras.callbacks import TensorBoard
 
+#The line must seen like this in terminal
+#(Neural_Network_Env) C:\Projects\Pycharm\Neural_Network\Neural_Network\Neural_Network_Models>tensorboard --logdir=logs/MnistExample
+
 # Importing Python
 
 mnist = tf.keras.datasets.mnist
@@ -33,13 +36,13 @@ loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
 loss_fn(y_train[:1], predictions).numpy()
 
-tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+tensorboard = TensorBoard(log_dir="logs/MnistExample/{}".format(time()))
 
 model.compile(optimizer='adam',
               loss=loss_fn,
               metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=5, callbacks=[tensorboard])
+model.fit(x_train, y_train, epochs=50, callbacks=[tensorboard])
 
 model.evaluate(x_test, y_test, verbose=2)
 
