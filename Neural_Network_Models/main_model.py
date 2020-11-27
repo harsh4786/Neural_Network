@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2  # Can be download in pycham by adding "opencv-python" library
 
+from time import time
+from tensorflow.python.keras.callbacks import TensorBoard
+
 # Importing Python
 
 mnist = tf.keras.datasets.mnist
@@ -12,9 +15,7 @@ x_train, x_test = x_train / 255.0, x_test / 255.0
 
 img1 = np.array(x_train[2])
 
-cv2.imshow("Image", img1)
-cv2.waitKey()
-cv2.destroyAllWindows()
+
 
 model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28)),
@@ -32,11 +33,13 @@ loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 
 loss_fn(y_train[:1], predictions).numpy()
 
+tensorboard = TensorBoard(log_dir="logs/{}".format(time()))
+
 model.compile(optimizer='adam',
               loss=loss_fn,
               metrics=['accuracy'])
 
-model.fit(x_train, y_train, epochs=5)
+model.fit(x_train, y_train, epochs=5, callbacks=[tensorboard])
 
 model.evaluate(x_test, y_test, verbose=2)
 
