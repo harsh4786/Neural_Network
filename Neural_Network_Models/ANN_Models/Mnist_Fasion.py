@@ -1,9 +1,5 @@
 # TensorFlow and tf.keras
 import tensorflow as tf
-from time import time
-from tensorflow.python.keras.callbacks import TensorBoard
-
-tensorboard = TensorBoard(log_dir="logs/MnistFasionExample/{}".format(time()))
 
 # Helper libraries
 import numpy as np
@@ -21,6 +17,7 @@ train_images.shape
 len(train_labels)
 
 train_labels
+
 
 plt.figure()
 plt.imshow(train_images[0])
@@ -45,19 +42,19 @@ plt.show()
 model = tf.keras.Sequential([
     tf.keras.layers.Flatten(input_shape=(28, 28)),
     tf.keras.layers.Dense(128, activation='relu'),
-    tf.keras.layers.Dense(5),
     tf.keras.layers.Dense(10)
-
 ])
 
-model.compile(optimizer='adam', loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+model.compile(optimizer='adam',
+              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-model.fit(train_images, train_labels, epochs=30, callbacks=[tensorboard])
+model.fit(train_images, train_labels, epochs=10)
 
 test_loss, test_acc = model.evaluate(test_images, test_labels, verbose=2)
 
 print('\nTest accuracy:', test_acc)
+
 
 probability_model = tf.keras.Sequential([model,
                                          tf.keras.layers.Softmax()])

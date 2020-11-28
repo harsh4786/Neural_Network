@@ -15,7 +15,7 @@ mnist = tf.keras.datasets.mnist
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 x_train, x_test = x_train / 255.0, x_test / 255.0
-'''
+
 img1 = np.array(x_train[2])
 
 model = tf.keras.models.Sequential([
@@ -38,14 +38,16 @@ loss_fn(y_train[:1], predictions).numpy()
 tensorboard = TensorBoard(log_dir="logs/MnistExample/{}".format(time()))
 
 # Saving the model using callbacks
+# Link of tutorial
+# https://www.youtube.com/watch?v=HxtBIwfy0kM&feature=emb_logo
 
 checkpoint_path = "traning_1/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
 
 cp_callback = tf.keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                  save_weights_only=True, verbose=1)
-#Save on every 5 epoch
-#cp_callback = tf.keras.callbacks.ModelCheckpoint(checkpoint_path, save_weights_only=True, period=5)
+# Save on every 5 epoch
+# cp_callback = tf.keras.callbacks.ModelCheckpoint(checkpoint_path, save_weights_only=True, period=5)
 
 model.compile(optimizer='adam',
               loss=loss_fn,
@@ -59,7 +61,6 @@ probability_model = tf.keras.Sequential([
     model,
     tf.keras.layers.Softmax()
 ])
-'''
 
 # Loading the Model
 
@@ -85,7 +86,7 @@ load_model = tf.keras.models.Sequential([
     tf.keras.layers.Dropout(0.2),
     tf.keras.layers.Dense(10)
 ])
-
+loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 load_model.compile(optimizer='adam',
                    loss=loss_fn,
                    metrics=['accuracy'])
@@ -95,4 +96,31 @@ load_model.load_weights(checkpoint_path)
 
 load_model.evaluate(x_test, y_test, verbose=2)
 
-# Saving model manually
+#  Manually without callbacks weights
+
+model.save_weights("./checkpoints/my_checkpoint")
+
+# restore the weihts
+
+restore_model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(input_shape=(28, 28)),
+    tf.keras.layers.Dense(128, activation='relu'),
+    tf.keras.layers.Dropout(0.2),
+    tf.keras.layers.Dense(10)
+])
+loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+restore_model.compile(optimizer='adam',
+                      loss=loss_fn,
+                      metrics=['accuracy'])
+print('manual restore ')
+restore_model.evaluate(x_test, y_test)
+
+# Save the entire Model
+model.save('my_mnist_model.h5')
+
+# Recreate the model
+new_model = tf.keras.models.load_model('my_mnist_model.h5')
+new_model.summary()
+
+print('restore model accuracy ')
+new_model.evalute(x_test, y_test)
