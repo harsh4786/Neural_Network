@@ -8,6 +8,7 @@ cap = cv2.VideoCapture(0)
 while (True):
     # Capture frame-by-frame
     ret, frame = cap.read()
+    img = 0
     img = frame
 
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
