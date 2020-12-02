@@ -16,7 +16,7 @@ def get_breeds_info(dataset_path):
 
 
 def prepare_dic(path):
-    print("Warning Code is to ram eater so ...  ")
+    print("Warning Code consume too much RAM ...  ")
     print('----------- (⊙_⊙;)  (⊙_⊙;)  (⊙_⊙;) ------------')
     print('---------Started-----------')
     dogs_dic = {}
