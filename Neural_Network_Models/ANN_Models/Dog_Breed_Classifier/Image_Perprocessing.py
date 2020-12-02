@@ -2,8 +2,11 @@ import os
 
 dataset_path = "C:/Projects/PycharmProjects/Neural_Network/Dataset/Dog_Breeds/images/Images"
 
-print(os.listdir(dataset_path))
+
+def Get_Breeds(dataset_path):
+    Breed_Folder_names = os.listdir(dataset_path)
+    for x in Breed_Folder_names:
+        print(x)
 
 
-def Get_image():
-    print('hello')
+Get_Breeds(dataset_path)
