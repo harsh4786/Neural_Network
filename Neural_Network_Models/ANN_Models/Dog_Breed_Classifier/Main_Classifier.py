@@ -14,9 +14,16 @@ import random
 import numpy
 
 # See Random Image
-
+'''
 while 'q' != str(input('for exit enter == q else for next image enter key')):
     n = random.randint(0, (len(image_list) - 1))
     cv2.imshow(str(n) + '-' + str(image_breed_index_list[n]), image_list[n])
     cv2.waitKey()
     cv2.destroyAllWindows()
+'''
+
+print(image_breed_index_list)
+print(image_list[1].shape)
+
+train_images, train_labels, test_images, test_labels = ipp.split_train_test_data(image_list, image_breed_index_list,
+                                                                                 0.6)

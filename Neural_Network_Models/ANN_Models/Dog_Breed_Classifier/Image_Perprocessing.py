@@ -55,6 +55,9 @@ def pre_processing(image):
     return pre_process_img
 
 
+import random
+
+
 def pre_process_load_data(dog_dic):
     # asssign values to dog breed
     i = 0
@@ -69,10 +72,26 @@ def pre_process_load_data(dog_dic):
             image_breed_index_list.append(i)
         i += 1
 
+    # suffleing data
+
+    temp = list(zip(image_list, image_breed_index_list))
+    random.shuffle(temp)
+    image_list, image_breed_index_list = zip(*temp)
+
     return breed_index_dic, image_list, image_breed_index_list
 
 
-# prepare_dic(dataset_path)
+def split_train_test_data(image_list, image_label, train_size_ratio):
+    list_len = len(image_list)
+    train_size = int(train_size_ratio * list_len)
+
+    train_images = image_list[0:train_size]
+    test_images = image_list[train_size + 1:(list_len - 1)]
+    train_labels = image_label[0:train_size]
+    test_labels = image_label[train_size + 1:(list_len - 1)]
+
+    return train_images, train_labels, test_images, test_labels
+
 
 '''
 Dic = PrepareDic(dataset_path)
