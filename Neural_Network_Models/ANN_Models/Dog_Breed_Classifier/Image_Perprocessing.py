@@ -55,7 +55,24 @@ def pre_processing(image):
     return pre_process_img
 
 
-prepare_dic(dataset_path)
+def pre_process_load_data(dog_dic):
+    # asssign values to dog breed
+    i = 0
+    breed_index_dic = {}
+    image_list = []
+    image_breed_index_list = []
+    for breed_name in dog_dic.keys():
+        breed_index_dic[i] = breed_name
+
+        for images in dog_dic[breed_name]:
+            image_list.append(images)
+            image_breed_index_list.append(i)
+        i += 1
+
+    return breed_index_dic, image_list, image_breed_index_list
+
+
+# prepare_dic(dataset_path)
 
 '''
 Dic = PrepareDic(dataset_path)
