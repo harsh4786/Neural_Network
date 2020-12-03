@@ -1,6 +1,6 @@
-from Neural_Network_Models.ANN_Models.Dog_Breed_Classifier import Image_Perprocessing as ipp
+from ANN_Models.Dog_Breed_Classifier import Image_Perprocessing as ipp
 
-dataset_path = "C:/Projects/PycharmProjects/Neural_Network/Dataset/Dog_Breeds/images/Images"
+dataset_path = "C:/Projects/pycharm projects/Neural_Network/Neural_Network/DATASETS/images/Images"
 
 Dog_dic = ipp.prepare_dic(dataset_path)  # Return dictionary in which keys = 'Breed_Name' values = 'all images of dog'
 breed_index_dic, image_list, image_breed_index_list = ipp.pre_process_load_data(Dog_dic)
@@ -20,6 +20,7 @@ while 'q' != str(input('for exit enter == q else for next image enter key')):
     cv2.imshow(str(n) + '-' + str(image_breed_index_list[n]), image_list[n])
     cv2.waitKey()
     cv2.destroyAllWindows()
+
 '''
 
 print(image_breed_index_list)

@@ -42,7 +42,7 @@ tensorboard = TensorBoard(log_dir="logs/MnistExample/{}".format(time()))
 # https://www.youtube.com/watch?v=HxtBIwfy0kM&feature=emb_logo
 
 checkpoint_path = "traning_1/cp.ckpt"
-checkpoint_dir = os.path.dirname(checkpoint_path)
+#checkpoint_dir = os.path.dirname(checkpoint_path)
 
 cp_callback = tf.keras.callbacks.ModelCheckpoint(checkpoint_path,
                                                  save_weights_only=True, verbose=1)
@@ -123,4 +123,4 @@ new_model = tf.keras.models.load_model('my_mnist_model.h5')
 new_model.summary()
 
 print('restore model accuracy ')
-new_model.evalute(x_test, y_test)
+new_model.evaluate(x_test, y_test)

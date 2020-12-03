@@ -29,10 +29,10 @@ load_model.load_weights(checkpoint_path)
 load_model.evaluate(x_test, y_test, verbose=2)
 
 # Issue of loading full model most probabaly the input shape is the issue
-'''
+
 new_model = tf.keras.models.load_model('my_mnist_model.h5')
 new_model.summary()
 
 print('restore model accuracy ')
-new_model.evalute(x_test, y_test, verbose=2)
-'''
+new_model.evaluate(x_train, y_train)
+
