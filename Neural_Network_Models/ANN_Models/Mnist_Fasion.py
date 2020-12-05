@@ -16,9 +16,13 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 train_images.shape
 
 len(train_labels)
-
-train_labels
-
+print(len(train_labels))
+print(type(train_labels))
+print(train_images.shape)
+for x in train_labels:
+    print(x)
+print(test_images.shape)
+print(test_labels.shape)
 
 plt.figure()
 plt.imshow(train_images[0])
@@ -62,7 +66,7 @@ probability_model = tf.keras.Sequential([model,
 
 predictions = probability_model.predict(test_images)
 
-predictions[0]
+print(predictions[0])
 
 np.argmax(predictions[0])
 

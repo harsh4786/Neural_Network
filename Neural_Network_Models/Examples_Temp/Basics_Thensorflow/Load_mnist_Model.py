@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras import Sequential
 import numpy as np
 import os
 import matplotlib.pyplot as plt
@@ -36,3 +37,8 @@ new_model.summary()
 print('restore model accuracy ')
 new_model.evaluate(x_train, y_train)
 
+test = 10
+data = x_test[test]
+print(data.shape)
+print(load_model.predict(np.array([data, ])))
+print(y_test[test])

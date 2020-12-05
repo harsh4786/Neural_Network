@@ -1,5 +1,6 @@
 import os
 import cv2
+import numpy as np
 
 dataset_path = "C:/Projects/PycharmProjects/Neural_Network/Dataset/Dog_Breeds/images/Images"
 
@@ -42,7 +43,9 @@ def prepare_dic(path):
 
 def pre_processing(image):
     size = (240, 240)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     pre_process_img = cv2.resize(image, size)
+    pre_process_img = np.array(pre_process_img)
 
     '''
     ##----------To Look the preprocess Images----------##
@@ -85,14 +88,42 @@ def split_train_test_data(image_list, image_label, train_size_ratio):
     list_len = len(image_list)
     train_size = int(train_size_ratio * list_len)
 
-    train_images = image_list[0:train_size]
-    test_images = image_list[train_size + 1:(list_len - 1)]
-    train_labels = image_label[0:train_size]
-    test_labels = image_label[train_size + 1:(list_len - 1)]
+    train_images = np.array(image_list[0:train_size])
+    test_images = np.array(image_list[train_size + 1:(list_len - 1)])
+    train_label = np.array(image_label[0:train_size])
+    test_label = np.array(image_label[train_size + 1:(list_len - 1)])
+    '''
+    train_labels = np.zeros([train_size, 120])
+    test_labels = np.zeros([list_len - train_size - 1, 120])
+    i = 0
+    for x in train_label:
+        train_labels[i][x] = 1
+        i += 1
+    i = 0
+    for x in test_label:
+        test_labels[i][x] = 1
+        i += 1
+    '''
+    return train_images, train_label, test_images, test_label
 
-    return train_images, train_labels, test_images, test_labels
+
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D
 
 
+def import_model():
+    model = Sequential()
+    model.add(Conv2D(12, 2, (3, 3), input_shape=(240, 240, 3)))  # shape = (240, 240, 3)
+    model.add(Activation("relu"))
+    model.add(MaxPool2D(pool_size=(5, 5)))
+    model.add(Activation("relu"))
+    model.add(Flatten())
+    model.add(Dense(120))
+    return model
+
+
+import_model()
 '''
 Dic = PrepareDic(dataset_path)
 Di, DB = Get_Breeds_info(dataset_path)
