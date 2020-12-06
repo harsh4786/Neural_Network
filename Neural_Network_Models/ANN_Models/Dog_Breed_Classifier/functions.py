@@ -22,6 +22,3 @@ def import_model():
 
     model.add(Dense(120))
     return model
-
-
-model = import_model()

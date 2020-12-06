@@ -42,8 +42,8 @@ def prepare_dic(path):
 
 
 def pre_processing(image):
-    size = (240, 240)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    size = (60, 60)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     pre_process_img = cv2.resize(image, size)
     pre_process_img = np.array(pre_process_img)
 
@@ -111,19 +111,34 @@ import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D
 
+'''
+def import_model():
+    model = Sequential()
+    model.add(Conv2D(12, 4, (3, 3), input_shape=(60, 60,1)))  # shape = (240, 240, 3)
+    model.add(Activation("relu"))
+    model.add(MaxPool2D(pool_size=(2, 2)))
+    model.add(Flatten())
+    model.add(Dense(120))
+    model.add(Activation('softmax'))
+    return model
+import_model()
+'''
+
 
 def import_model():
     model = Sequential()
-    model.add(Conv2D(12, 2, (3, 3), input_shape=(240, 240, 3)))  # shape = (240, 240, 3)
+    model.add(Conv2D(12, 4, (3, 3), input_shape=(60, 60, 1)))  # shape = (240, 240, 3)
     model.add(Activation("relu"))
-    model.add(MaxPool2D(pool_size=(5, 5)))
-    model.add(Activation("relu"))
+    model.add(MaxPool2D(pool_size=(2, 2)))
     model.add(Flatten())
+    model.add(Dense(972))
+    model.add(Activation('relu'))
     model.add(Dense(120))
+    model.add(Activation('softmax'))
     return model
 
 
-import_model()
+# import_model()
 '''
 Dic = PrepareDic(dataset_path)
 Di, DB = Get_Breeds_info(dataset_path)
