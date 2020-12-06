@@ -75,3 +75,4 @@ print(prediction)
 print(np.argmax(prediction))
 
 model.save("Dog_breed_classifier_v4.h5")
+print("test")
