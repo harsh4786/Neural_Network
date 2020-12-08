@@ -1,6 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D
+from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D, Dropout
 
 
 def import_model():
@@ -18,7 +18,6 @@ def import_model():
     model.add(MaxPool2D(pool_size=(2, 2)))
 
     model.add(Flatten())
-    model.add(Dense(256))
 
     model.add(Dense(120))
     return model
