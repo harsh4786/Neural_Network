@@ -187,3 +187,4 @@ Neural_Network_Models/RNN_Models/
 	# Ignore pickles
 *.pkl
 **/*.pkl
+*.p
