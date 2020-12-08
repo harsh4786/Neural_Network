@@ -183,3 +183,7 @@ out
 gen
 Neural_Network_Models/CNN_Models/
 Neural_Network_Models/RNN_Models/
+
+	# Ignore pickles
+*.pkl
+**/*.pkl
