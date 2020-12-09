@@ -73,7 +73,10 @@ model.compile(
 )
 h = model.fit(augs_gen.flow(trainImg,trainLabel), epochs = 20, verbose = 1, batch_size = 250,
               validation_data  = (preprocess_input(testImg),testLabel))
-
+cap = cv2.VideoCapture(0)
+cap.set(3, frameWidth)
+cap.set(4, frameHeight)
+cap.set(10, brightness)
 plt.figure(figsize = (10,5))
 plt.subplot(1,2,1)
 plt.plot(h.history['accuracy'],     label = 'Train')
