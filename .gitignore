@@ -184,6 +184,10 @@ gen
 Neural_Network_Models/CNN_Models/
 Neural_Network_Models/RNN_Models/
 
+#Pickle files
+.p
+
+
 	# Ignore pickles
 *.pkl
 **/*.pkl

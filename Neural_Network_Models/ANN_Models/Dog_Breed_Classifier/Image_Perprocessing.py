@@ -42,8 +42,9 @@ def prepare_dic(path):
 
 
 def pre_processing(image):
-    size = (60, 60)
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    size = (120, 120)
+    # image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     pre_process_img = cv2.resize(image, size)
     pre_process_img = np.array(pre_process_img)
 
@@ -109,7 +110,7 @@ def split_train_test_data(image_list, image_label, train_size_ratio):
 
 import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D
+from tensorflow.keras.layers import Dense, Conv2D, Activation, Flatten, MaxPool2D, Dropout
 
 '''
 def import_model():
@@ -124,16 +125,36 @@ def import_model():
 import_model()
 '''
 
+from keras.utils import np_utils
+from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.applications.efficientnet import preprocess_input, EfficientNetB3
 
-def import_model():
-    model = Sequential()
-    model.add(Conv2D(12, 4, (3, 3), input_shape=(60, 60, 1)))  # shape = (240, 240, 3)
-    model.add(Activation("relu"))
-    model.add(MaxPool2D(pool_size=(2, 2)))
+
+def import_model(train_images):
+    augs_gen = ImageDataGenerator(preprocessing_function=preprocess_input, featurewise_center=False,
+                                  samplewise_center=False,
+                                  featurewise_std_normalization=False,
+                                  samplewise_std_normalization=False,
+                                  zca_whitening=False,
+                                  rotation_range=10,
+                                  zoom_range=0.1,
+                                  width_shift_range=0.2,
+                                  height_shift_range=0.2,
+                                  horizontal_flip=True,
+                                  vertical_flip=False)
+    augs_gen.fit(train_images)
+
+    base_model = EfficientNetB3(include_top=False,
+                                input_shape=(120, 120, 3),
+                                weights='imagenet')
+
+    base_model.trainable = False
+
+    model = Sequential([base_model])
+
     model.add(Flatten())
-    model.add(Dense(972))
-    model.add(Activation('relu'))
     model.add(Dense(120))
+    # model.add(Dropout(0.8))
     model.add(Activation('softmax'))
     return model
 
